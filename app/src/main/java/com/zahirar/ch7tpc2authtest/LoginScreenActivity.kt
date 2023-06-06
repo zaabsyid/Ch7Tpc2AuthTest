@@ -41,7 +41,7 @@ class LoginScreenActivity : AppCompatActivity() {
         }
     }
 
-    private  fun signInGoogle(){
+    private fun signInGoogle(){
 
         val signInIntent: Intent =mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent,Req_Code)
@@ -69,7 +69,10 @@ class LoginScreenActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
 //                val intent = Intent(this, MainActivity::class.java)
 //                startActivity(intent)
-            startActivity(Intent(this, MainActivity::class.java))
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("name", account.displayName)
+            startActivity(intent)
+            finish()
 
 
         }
@@ -78,7 +81,7 @@ class LoginScreenActivity : AppCompatActivity() {
         super.onStart()
         if(GoogleSignIn.getLastSignedInAccount(this)!=null){
             startActivity(Intent(this, MainActivity::class.java))
-
+            finish()
         }
     }
 
@@ -86,7 +89,7 @@ class LoginScreenActivity : AppCompatActivity() {
         super.onResume()
         if(GoogleSignIn.getLastSignedInAccount(this)!=null){
             startActivity(Intent(this, MainActivity::class.java))
-
+            finish()
         }
     }
 }
